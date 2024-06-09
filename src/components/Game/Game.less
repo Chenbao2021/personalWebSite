@@ -1,0 +1,132 @@
+.gameItemColor {
+    // background-color: linear-gradient(45deg, #c71818 0, #840b0b 50%, #fff 50%);
+    // background-color: white;
+    // filter: blur(10px);
+    color: transparent;
+    font-weight: 1000;
+    // font-size:10%;
+    -webkit-text-stroke: 3px white;
+    mix-blend-mode:luminosity;
+    margin-right: 5px;
+    // mix-blend-mode: difference;
+}
+.border-line-container {
+    overflow: hidden;
+}
+.border-line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: Translate(-50%, -50%);
+
+    // height: 50%;
+    // background-color: white;
+
+    // animation: border-line 3s infinite linear;
+    // transform: rotate(-45deg);
+    // // transform-origin: 0 0;
+    // mix-blend-mode: difference;
+
+    size: 100px;
+    opacity: 0.8;
+    
+}
+
+@keyframes move {
+    0% {
+        transform: translate(-30%, -50%);
+    }
+    100% {
+        transform: translate(-70%, -50%);
+    }
+}
+
+@keyframes border-line {
+    to {
+        transform: rotate(360deg);
+    }
+}
+.lanceButton {
+    background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+    linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+    linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+    ;
+    animation: move 5s infinite linear;
+
+}
+.diceContainer {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    .personnalizationContainer {
+        
+        flex-grow:  1;
+        height: auto;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+}
+.spyContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+
+    .spyCardContainer {
+        height: 100%;
+        min-height: 600px;
+
+        width: 320px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        background: linear-gradient(217deg, rgba(92, 85, 85, 0.8), rgba(196, 189, 189, 0) 70.71%),
+        linear-gradient(127deg, rgba(46, 113, 46, 0.8), rgba(31, 54, 31, 0) 70.71%),
+        linear-gradient(336deg, rgba(6, 6, 87, 0.8), rgba(43, 43, 72, 0) 70.71%);
+        ;
+        // animation: move 7s infinite linear;
+
+        .cardContentContainer{
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            // justify-content: center;
+            gap: 10px;
+
+            width: 100%;
+        }
+    }
+}
+
+.WhoIsSpyStartGameContainer {
+    height: 100px;
+    display: flex;
+    // flex-direction: column;
+    width: 95%;
+
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: white;
+
+    margin-bottom: 5px;
+}
+
+@keyframes move {
+    0% {
+        filter: unset;
+    }
+    100% {
+        filter: hue-rotate(1turn)
+    }
+}

@@ -1,0 +1,31 @@
+{
+	"parser": "@typescript-eslint/parser",
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:react/recommended",
+	],
+	"plugins": ["@typescript-eslint", "react", "react-hooks"],
+	"env": {
+		"browser": true,
+		"es2021": true,
+	},
+	"settings": {
+		"react": {
+			"version": "detect", // Détecte automatiquement la version de React pour configurer les règles de manière appropriée
+		},
+	},
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true,
+		},
+		"ecmaVersion": 12,
+		"sourceType": "module",
+	},
+	"rules": {
+		// Personnalisez vos règles ici, par exemple:
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "warn", // Cette ligne est cruciale
+		"react/react-in-jsx-scope": "off",
+	},
+}
