@@ -22,16 +22,15 @@ function Album() {
 				onChange={(_, newValue) => {
 					dispatch(changeSelectedBar(newValue))
 				}}
+				textColor={'inherit'}
 				sx={{
-					backgroundColor: 'primary.dark',
+					// backgroundColor: 'primary.dark',
 					width: '100%',
 					display: 'flex',
 					justifyContent: 'flex-start',
 					'.Mui-selected': {
-						color: 'black',
-					},
-					'& *': {
-						color: 'secondary.dark',
+						color: '#333333',
+						backgroundColor: '#f1f3f7',
 					},
 				}}
 				TabIndicatorProps={{

@@ -12,27 +12,37 @@
 	.modalCard {
 		height: 98vh;
 		width: 350px;
-		max-height: 650px;
+		max-height: 600px;
 		background-color: white;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
 		outline: none;
+		align-items: center;
+		.imgContainer {
+			height: 450px;
 
+			width: 100%;
+
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
 		img {
-			width: 350px;
-			aspect-ratio: 1/1;
-			padding: 2px;
+			width: 100%;
+			height: auto;
+			padding: 1px;
+			max-height: 430px;
 		}
 		.modalCardHeader {
 			flex-shrink: 0;
 		}
 		.modalCardContent {
-			// padding: 5px;
 			flex-grow: 1;
 			display: flex;
 			flex-direction: column;
-			min-height: 200px;
+			// min-height: 200px;
+
 			div:nth-child(2) {
 				flex-grow: 1;
 
@@ -40,26 +50,8 @@
 				flex-direction: column;
 				justify-content: space-around;
 			}
-			.modalCardAction {
-				display: flex;
-				justify-content: flex-end;
-				align-items: center;
-				> * {
-					display: flex;
-					align-items: center;
-				}
-			}
 		}
 	}
-}
-
-.modalContentTitle {
-	display: flex;
-
-	align-items: center;
-	justify-content: space-between;
-
-	margin: 10px 0;
 }
 
 .imageListImage {

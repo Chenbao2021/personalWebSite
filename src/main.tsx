@@ -13,7 +13,7 @@ import './App.css'
 const theme = createTheme({
 	palette: {
 		primary: {
-			dark: grey[400],
+			dark: grey[50],
 			main: grey[100],
 			light: grey[50],
 		},

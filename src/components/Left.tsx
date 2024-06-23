@@ -80,12 +80,13 @@ function Left() {
 		dispatch({ type: ActionEnum.setDrawerItem, value: 'Album' })
 	}, [dispatch])
 	const openLink = useCallback(() => {
-		dispatch({ type: ActionEnum.setDrawerItem, value: 'Link' })
+		dispatch({ type: ActionEnum.setDrawerItem, value: 'Discover' })
 	}, [dispatch])
 	interface IListItemCustomized {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		Icon: any
 		text: string
+		first: boolean
 		onClick: () => void
 	}
 	const ListItemCustomized = useCallback(
@@ -97,11 +98,17 @@ function Left() {
 					onClick={props.onClick}
 					sx={{
 						bgcolor: DrawerItemSelected === props.text ? 'grey' : undefined,
+						scale: props.first ? '1.05' : '1',
 					}}
 				>
 					<ListItemButton>
 						<ListItemIcon>{props.Icon}</ListItemIcon>
-						<ListItemText primary={props.text} />
+						<ListItemText
+							primary={props.text}
+							primaryTypographyProps={{
+								fontWeight: props.first ? '800' : undefined,
+							}}
+						/>
 					</ListItemButton>
 				</ListItem>
 			)
@@ -151,7 +158,7 @@ function Left() {
 			>
 				{appData.DrawerItemSelected === 'Album' && <Album />}
 				{appData.DrawerItemSelected === 'Game' && <Game />}
-				{appData.DrawerItemSelected === 'Link' && <Discover />}
+				{appData.DrawerItemSelected === 'Discover' && <Discover />}
 			</Box>
 			<Drawer
 				open={openDrawer}
@@ -186,16 +193,19 @@ function Left() {
 							Icon={<PhotoAlbum />}
 							text='Album'
 							onClick={openAlbum}
+							first
 						/>
 						<ListItemCustomized
 							Icon={<VideogameAssetRounded />}
 							text='Game'
 							onClick={openGame}
+							first={false}
 						/>
 						<ListItemCustomized
 							Icon={<InsertLink />}
-							text=' Discover'
+							text='Discover'
 							onClick={openLink}
+							first={false}
 						/>
 					</List>
 				</Box>

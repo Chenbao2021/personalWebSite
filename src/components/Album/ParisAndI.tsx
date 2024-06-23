@@ -1,17 +1,17 @@
-import { Info, Language } from '@mui/icons-material'
+import { Info, Language, Close } from '@mui/icons-material'
 import {
 	Pagination,
 	Box,
 	Card,
-	CardActions,
 	CardContent,
 	IconButton,
 	ImageList,
 	ImageListItem,
 	ImageListItemBar,
 	Modal,
-	Typography,
 	useMediaQuery,
+	CardActions,
+	Typography,
 } from '@mui/material'
 import { useCallback, useState } from 'react'
 // import LoopIcon from '@mui/icons-material/Loop';
@@ -84,25 +84,44 @@ function ParisAndI() {
 				</ImageList>
 				<Modal className='modal' open={openModal} onClose={closeModal}>
 					<Card className='modalCard'>
-						<Typography
-							component={'h3'}
-							variant='h4'
-							style={{
-								whiteSpace: 'nowrap',
-								overflow: 'hidden',
-								textOverflow: 'ellipsis',
-								padding: '5px',
+						<Box
+							sx={{
+								width: '100%',
+								display: 'flex',
+								justifyContent: 'end',
+								alignItems: 'center',
+								paddingRight: '3px',
 							}}
 						>
-							{openModalImage?.title.toUpperCase()}
-						</Typography>
-						<img
-							className='modalCardHeader'
-							src={openModalImage?.listImage[modalPage - 1]}
-							alt={openModalImage?.title}
-							loading='lazy'
-						/>
-						<CardContent className='modalCardContent'>
+							<div>
+								{openModalImage?.officialWeb && (
+									<IconButton href={openModalImage?.officialWeb}>
+										<Language fontSize='large' sx={{ color: 'black' }} />
+									</IconButton>
+								)}
+								<IconButton onClick={closeModal}>
+									<Close fontSize='large' sx={{ color: 'black' }} />
+								</IconButton>
+							</div>
+						</Box>
+						<Typography variant='h3'>{openModalImage?.title}</Typography>
+						<CardContent className='imgContainer'>
+							<img
+								className='modalCardHeader'
+								src={openModalImage?.listImage[modalPage - 1]}
+								alt={openModalImage?.title}
+								loading='lazy'
+							/>
+						</CardContent>
+						<CardActions
+							sx={{
+								display: 'flex',
+								flexDirection: 'column',
+								justifyContent: 'flex-end',
+
+								flexGrow: 1,
+							}}
+						>
 							<Pagination
 								sx={{
 									display: 'flex',
@@ -115,33 +134,7 @@ function ParisAndI() {
 									setModalPage(page)
 								}}
 							/>
-
-							<Box component={'div'}>
-								<Box component={'div'}>
-									<Typography>{openModalImage?.description}</Typography>
-								</Box>
-							</Box>
-							<CardActions className='modalCardAction'>
-								{openModalImage?.officialWeb && (
-									<Box
-										component={'a'}
-										href={openModalImage?.officialWeb}
-										sx={{ textDecorationLine: 'none' }}
-									>
-										<Typography
-											sx={{
-												display: 'flex',
-												alignItems: 'center',
-												color: 'black',
-											}}
-										>
-											{' '}
-											<Language fontSize='large' />: More informations{' '}
-										</Typography>
-									</Box>
-								)}
-							</CardActions>
-						</CardContent>
+						</CardActions>
 					</Card>
 				</Modal>
 			</Box>
@@ -175,6 +168,25 @@ const itemData: photoProps[] = [
 			'Les Rencontres internationales de cerfs-volants est un événement organisé chaque année depuis 1987 sur la plage de Berck dans le Pas-de-Calais.',
 		frequence: 'Annuel',
 		officialWeb: 'https://www.cerf-volant-berck.com/',
+	},
+	{
+		img: 'https://yuchenbao.com/assets/Landscape/cafe_duanwu3.jpeg',
+		listImage: [
+			'https://yuchenbao.com/assets/Landscape/cafe_duanwu3.jpeg',
+			'https://yuchenbao.com/assets/Landscape/cafe_duanwu2.jpeg',
+			'https://yuchenbao.com/assets/Landscape/cafe_duanwu1.jpeg',
+			'https://yuchenbao.com/assets/Landscape/cafe_duanwu4.jpeg',
+			'https://yuchenbao.com/assets/Landscape/cafe_duanwu5.jpeg',
+		],
+		title: 'Café franco-chinois',
+		author: '# 1 fois/mois',
+		cols: 1,
+		rows: 1,
+		description:
+			'Café franco-chinois est un pôle de AJCF(Association des jeunes chinois en France), a pour but de pratiquer le français pour les sinophones, et pratiquer le chinois pour les francophones.',
+		frequence: 'Annuel',
+		officialWeb:
+			'https://www.xiaohongshu.com/user/profile/65c2115f0000000011016f1b?xhsshare=CopyLink&appuid=65c2115f0000000011016f1b&apptime=1718568451',
 	},
 	{
 		img: 'https://yuchenbao.com/assets/Landscape/zommbie2023.jpeg',
@@ -323,6 +335,8 @@ const itemData: photoProps[] = [
 			'https://yuchenbao.com/assets/Landscape/animalExpo2.jpeg',
 			'https://yuchenbao.com/assets/Landscape/animalExpo3.jpeg',
 			'https://yuchenbao.com/assets/Landscape/animalExpo4.jpeg',
+			'https://yuchenbao.com/assets/Landscape/animalExpo5.jpeg',
+			'https://yuchenbao.com/assets/Landscape/animalExpo6.jpeg',
 		],
 
 		title: 'Paris Animal expo',
@@ -333,6 +347,20 @@ const itemData: photoProps[] = [
 		description:
 			"L'exposition Paris Animal Expo offre une immersion captivante dans le monde fascinant des animaux, offrant une expérience enrichissante pour les amoureux de la faune de tous âges.",
 		officialWeb: 'https://www.animal-expo.com/',
+	},
+	{
+		img: 'https://yuchenbao.com/assets/Landscape/nouvel_an1.jpeg',
+		listImage: [
+			'https://yuchenbao.com/assets/Landscape/nouvel_an1.jpeg',
+			'https://yuchenbao.com/assets/Landscape/nouvel_an2.jpeg',
+			'https://yuchenbao.com/assets/Landscape/nouvel_an3.jpeg',
+		],
+
+		title: 'Nouvel an Arc Triomphe',
+		author: '# 1 fois/an',
+		cols: 1,
+		rows: 1,
+		frequence: 'Annuel',
 	},
 	{
 		img: 'https://yuchenbao.com/assets/Landscape/playParis1.jpeg',
