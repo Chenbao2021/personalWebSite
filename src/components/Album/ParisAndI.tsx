@@ -1,4 +1,4 @@
-import { Info, Language, Close } from '@mui/icons-material'
+import { Info, Language, Close, ZoomIn, ZoomOut } from '@mui/icons-material'
 import {
 	Pagination,
 	Box,
@@ -13,12 +13,19 @@ import {
 	CardActions,
 	Typography,
 } from '@mui/material'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 // import LoopIcon from '@mui/icons-material/Loop';
 // import DateRangeIcon from '@mui/icons-material/DateRange';
 import './ParisAndI.less'
 
 function ParisAndI() {
+	const imgRef = useRef<HTMLImageElement | null>(null)
+	const [zoomValue, setZoomValue] = useState<number>(1)
+
+	const [position, setPosition] = useState<{ x: number; y: number }>({
+		x: 0,
+		y: 0,
+	})
 	const [openModal, setOpenModal] = useState<boolean>(false)
 	const [openModalImage, setOpenModalImage] = useState<photoProps | undefined>()
 	const [modalPage, setModalPage] = useState<number>(1)
@@ -31,6 +38,90 @@ function ParisAndI() {
 		setOpenModal(false)
 		setModalPage(1)
 	}, [])
+
+	const handleZoomIn = useCallback(() => {
+		const img = imgRef.current
+		setZoomValue(zoomValue + 0.2)
+		if (img) {
+			img.style.transform = `scale(${zoomValue})`
+		}
+	}, [zoomValue])
+	const handleZoomOut = useCallback(() => {
+		const img = imgRef.current
+		setZoomValue(zoomValue > 0.5 ? zoomValue - 0.2 : 0.5)
+		if (img) {
+			img.style.transform = `scale(${zoomValue})`
+		}
+	}, [zoomValue])
+
+	useEffect(() => {
+		const image = imgRef.current
+		let isDragging = false
+		let prevPosition = { x: 0, y: 0 }
+
+		const handleMouseDown = (e: MouseEvent) => {
+			isDragging = true
+			prevPosition = { x: e.clientX, y: e.clientY }
+		}
+
+		const handleMouseMove = (e: MouseEvent) => {
+			if (!isDragging) return
+			const deltaX = e.clientX - prevPosition.x
+			const deltaY = e.clientY - prevPosition.y
+			prevPosition = { x: e.clientX, y: e.clientY }
+
+			setPosition({
+				x: position.x + deltaX,
+				y: position.y + deltaY,
+			})
+		}
+		const handleMouseUp = () => {
+			isDragging = false
+		}
+		const handleTouchStart = (e: TouchEvent) => {
+			isDragging = true
+			const touch = e.touches[0]
+			prevPosition = { x: touch.clientX, y: touch.clientY }
+		}
+
+		const handleTouchMove = (e: TouchEvent) => {
+			if (!isDragging) return
+			const touch = e.touches[0]
+			const deltaX = touch.clientX - prevPosition.x
+			const deltaY = touch.clientY - prevPosition.y
+			prevPosition = { x: touch.clientX, y: touch.clientY }
+
+			setPosition({
+				x: position.x + deltaX,
+				y: position.y + deltaY,
+			})
+		}
+
+		const handleTouchEnd = () => {
+			isDragging = false
+		}
+
+		// PC
+		image?.addEventListener('mousedown', handleMouseDown)
+		image?.addEventListener('mousemove', handleMouseMove)
+		image?.addEventListener('mouseup', handleMouseUp)
+
+		// Mobile
+		image?.addEventListener('touchstart', handleTouchStart)
+		image?.addEventListener('touchmove', handleTouchMove)
+		image?.addEventListener('touchend', handleTouchEnd)
+		image?.addEventListener('touchcancel', handleTouchEnd)
+		return () => {
+			image?.removeEventListener('mousedown', handleMouseDown)
+			image?.removeEventListener('mousemove', handleMouseMove)
+			image?.removeEventListener('mouseup', handleMouseUp)
+
+			image?.removeEventListener('touchstart', handleTouchStart)
+			image?.removeEventListener('touchmove', handleTouchMove)
+			image?.removeEventListener('touchend', handleTouchEnd)
+			image?.removeEventListener('touchcancel', handleTouchEnd)
+		}
+	}, [imgRef, position.x, position.y, zoomValue])
 	return (
 		<div className='parisAndIContainer'>
 			<Box
@@ -90,10 +181,25 @@ function ParisAndI() {
 								display: 'flex',
 								justifyContent: 'end',
 								alignItems: 'center',
-								paddingRight: '3px',
+
+								paddingRight: '5px',
+								paddingLeft: '5px',
 							}}
 						>
-							<div>
+							<div
+								style={{
+									flex: '1 2 auto',
+									display: 'flex',
+									justifyContent: 'flex-start',
+								}}
+							>
+								<Typography variant='h3'>{openModalImage?.title}</Typography>
+							</div>
+							<div
+								style={{
+									flex: '1 0 auto',
+								}}
+							>
 								{openModalImage?.officialWeb && (
 									<IconButton href={openModalImage?.officialWeb}>
 										<Language fontSize='large' sx={{ color: 'black' }} />
@@ -104,14 +210,29 @@ function ParisAndI() {
 								</IconButton>
 							</div>
 						</Box>
-						<Typography variant='h3'>{openModalImage?.title}</Typography>
 						<CardContent className='imgContainer'>
 							<img
+								ref={imgRef}
 								className='modalCardHeader'
 								src={openModalImage?.listImage[modalPage - 1]}
 								alt={openModalImage?.title}
 								loading='lazy'
+								style={{
+									transform: `scale(${zoomValue}) translate(${position.x}px, ${position.y}px) `,
+								}}
 							/>
+							<div
+								style={{
+									position: 'absolute',
+									bottom: '5px',
+									width: '100%',
+									display: 'flex',
+									justifyContent: 'flex-end',
+								}}
+							>
+								<ZoomIn fontSize='large' onClick={handleZoomIn} />
+								<ZoomOut fontSize='large' onClick={handleZoomOut} />
+							</div>
 						</CardContent>
 						<CardActions
 							sx={{

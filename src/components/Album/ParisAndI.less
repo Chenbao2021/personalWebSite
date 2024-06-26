@@ -13,12 +13,16 @@
 		height: 98vh;
 		width: 350px;
 		max-height: 600px;
-		background-color: white;
+		background-color: #cacfcc;
 		display: flex;
 		flex-direction: column;
 		outline: none;
 		align-items: center;
 		.imgContainer {
+			background-color: #d4d9d6;
+			position: relative;
+			padding: 2px;
+			margin: 2px;
 			height: 450px;
 
 			width: 100%;
@@ -27,6 +31,8 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
+
+			overflow: hidden;
 		}
 		img {
 			width: 100%;
@@ -36,6 +42,7 @@
 		}
 		.modalCardHeader {
 			flex-shrink: 0;
+			transition: 1s ease;
 		}
 		.modalCardContent {
 			flex-grow: 1;
